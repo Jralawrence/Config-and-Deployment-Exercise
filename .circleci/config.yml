@@ -1,34 +1,18 @@
 version: 2.1
 
 jobs:
-  build:
+  create_infrastructure:
     docker:
-      - image: circleci/node:13.8.0
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
-      - run: npm i
-      - run: npm run lint
-  test:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - checkout
-      - run: npm i
-      - run: npm run test
-  analyze:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - checkout
-      - run: npm audit
-
-workflows:
-  my_workflow:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
-      - analyze:
-          requires:
-            - test
+      - add_ssh_keys:
+        fingerprints: [7f:e6:cb:d6:41:1a:02:57:94:cb:60:11:94:75:57:54]
+      - run:
+        name: Install dependencies
+        command: |
+          apk add --update ansible
+      - run:
+        name: Configure Server
+        command: |
+          ansible-playbook -i inventory.txt playbook.yml
