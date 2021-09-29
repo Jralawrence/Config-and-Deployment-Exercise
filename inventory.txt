@@ -1,0 +1,2 @@
+[all]
+ec2-18-197-181-18.eu-central-1.compute.amazonaws.com

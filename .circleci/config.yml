@@ -1,0 +1,35 @@
+version: 2.1
+
+jobs:
+  configure_infrastructure:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: []
+#       - run: npm run lint
+#   test:
+#     docker:
+#       - image: circleci/node:13.8.0
+#     steps:
+#       - checkout
+#       - run: npm i
+#       - run: npm run test
+#   analyze:
+#     docker:
+#       - image: circleci/node:13.8.0
+#     steps:
+#       - checkout
+#       - run: npm audit
+
+# workflows:
+#   my_workflow:
+#     jobs:
+#       - build
+#       - test:
+#           requires:
+#             - build
+#       - analyze:
+#           requires:
+#             - test
